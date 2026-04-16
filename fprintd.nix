@@ -46,10 +46,10 @@ in
   nixpkgs.overlays = [overlay];
   services = {
     fprintd = {
-      enable = if host == "NixOS-Laptop" then true else false;
-      package = if host == "NixOS-Laptop" then pkgs.fprintd else null;
-      tod.enable = if host == "NixOS-Laptop" then false else false;
+      enable = true;
+      package = pkgs.fprintd;
+      tod.enable = false;
     };
-    udev.packages = if host == "NixOS-Laptop" then [ pkgs.libfprint ] else [];
+    udev.packages = [ pkgs.libfprint ];
   };
 }
