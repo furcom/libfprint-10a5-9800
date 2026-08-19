@@ -2203,48 +2203,27 @@ index 0000000..ec5883d
 +
 +#endif // __FPCLIB_API_H__
 diff --git a/libfprint/meson.build b/libfprint/meson.build
-index 2316b14..1d8c03e 100644
 --- a/libfprint/meson.build
 +++ b/libfprint/meson.build
-@@ -149,6 +149,8 @@ driver_sources = {
-         [ 'drivers/goodixmoc/goodix.c', 'drivers/goodixmoc/goodix_proto.c' ],
-     'fpcmoc' :
-         [ 'drivers/fpcmoc/fpc.c' ],
-+    'fpcmoh' :
-+        [ 'drivers/fpcmoh/fpc.c' ],
-     'realtek' :
-         [ 'drivers/realtek/realtek.c' ],
-     'focaltech_moc' :
-@@ -166,6 +168,8 @@ helper_sources = {
-         [ ],
-     'udev' :
-         [ ],
-+    'fpcbep' :
-+        [ ],
-     'virtual' :
-         [ 'drivers/virtual-device-listener.c' ],
- }
+@@ -136,3 +136,4 @@ driver_sources = {
+     ),
+     'fpcmoc' : files('drivers/fpcmoc/fpc.c'),
++    'fpcmoh' : files('drivers/fpcmoh/fpc.c'),
+     'realtek' : files('drivers/realtek/realtek.c'),
+@@ -149,3 +150,4 @@ helper_sources = {
+     'pixman': files(),
+     'udev': files(),
++    'fpcbep': files(),
+     'virtual': files('drivers/virtual-device-listener.c'),
 diff --git a/meson.build b/meson.build
-index 19c06ac..15288c7 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -136,6 +136,7 @@ default_drivers = [
-     'goodixmoc',
-     'nb1010',
-     'fpcmoc',
-+    'fpcmoh',
-     'realtek',
-     'focaltech_moc',
- ]
-@@ -205,6 +206,7 @@ driver_helper_mapping = {
-     'aes4000' : [ 'aeslib', 'aes3k' ],
-     'uru4000' : [ 'nss' ],
-     'elanspi' : [ 'udev' ],
-+    'fpcmoh' :  [ 'fpcbep' ],
-     'virtual_image'          : [ 'virtual' ],
-     'virtual_device'         : [ 'virtual' ],
-     'virtual_device_storage' : [ 'virtual' ],
-@@ -278,6 +280,13 @@ foreach i : driver_helpers
+@@ -144,3 +144,4 @@ drivers_info = {
+     'nb1010': {},
+     'fpcmoc': {},
++    'fpcmoh': { 'helper': ['fpcbep'] },
+     'realtek': {},
+@@ -278,6 +279,13 @@ foreach i : driver_helpers
          libfprint_conf.set10('HAVE_UDEV', true)
  
          optional_deps += gudev_dep
