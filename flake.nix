@@ -49,7 +49,9 @@
             '';
           });
 
-          fprintd-10a5-9800 = prev.fprintd.overrideAttrs (attrs: {
+          fprintd-10a5-9800 = (prev.fprintd.override {
+            libfprint = final.libfprint-10a5-9800;
+          }).overrideAttrs (attrs: {
             doCheck = false;
             nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ attrs.nativeCheckInputs;
           });
